@@ -1,0 +1,119 @@
+.testimonials {
+  background: var(--color-bg);
+}
+
+.testimonials__carousel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 760px;
+  margin: var(--space-10) auto 0;
+}
+
+.testimonials__arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.testimonials__arrow:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.testimonials__card {
+  flex: 1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  position: relative;
+}
+
+.testimonials__quote {
+  color: var(--color-gold);
+  opacity: 0.4;
+  margin-bottom: var(--space-4);
+}
+
+.testimonials__text {
+  font-size: 1.05rem;
+  color: var(--color-white);
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: var(--space-6);
+}
+
+.testimonials__stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: var(--space-6);
+}
+
+.testimonials__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.testimonials__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-gold-dim);
+  border: 1px solid var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.testimonials__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-white);
+}
+
+.testimonials__event {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+.testimonials__dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+}
+
+.testimonials__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border);
+  transition: all var(--transition);
+}
+
+.testimonials__dot--active {
+  background: var(--color-gold);
+  width: 24px;
+  border-radius: 99px;
+}
+
+@media (max-width: 600px) {
+  .testimonials__arrow { display: none; }
+  .testimonials__card { padding: var(--space-6) var(--space-6); }
+  .testimonials__text { font-size: 0.95rem; }
+}
