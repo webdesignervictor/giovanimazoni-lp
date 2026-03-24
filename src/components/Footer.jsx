@@ -1,8 +1,6 @@
-// social icons as inline SVGs (lucide-react doesn't export social brand icons)
 const IgIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-    <circle cx="12" cy="12" r="4"/>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/>
     <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
   </svg>
 )
@@ -17,52 +15,40 @@ const FbIcon = () => (
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
   </svg>
 )
-import './Footer.css'
 
-const links = [
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#portfolio', label: 'Portfólio' },
-  { href: '#depoimentos', label: 'Depoimentos' },
-  { href: '#faq', label: 'FAQ' },
-  { href: '#contato', label: 'Contato' },
-]
+const navLinks = ['Sobre', 'Serviços', 'Portfólio', 'Depoimentos', 'FAQ', 'Contato']
+  .map(l => ({ href: `#${l.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}`, label: l }))
 
 const socials = [
   { href: 'https://instagram.com/giovanimazoni', icon: <IgIcon />, label: 'Instagram' },
-  { href: 'https://youtube.com/@giovanimazoni', icon: <YtIcon />, label: 'YouTube' },
-  { href: 'https://facebook.com/giovanimazoni', icon: <FbIcon />, label: 'Facebook' },
+  { href: 'https://youtube.com/@giovanimazoni',  icon: <YtIcon />, label: 'YouTube'   },
+  { href: 'https://facebook.com/giovanimazoni',  icon: <FbIcon />, label: 'Facebook'  },
 ]
 
 export default function Footer() {
-  const handleLink = (e, href) => {
+  const go = (e, href) => {
     e.preventDefault()
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <footer className="footer">
-      <div className="container footer__inner">
+    <footer className="bg-surface border-t border-white/[0.08]">
+      <div className="max-w-container mx-auto px-6 pt-16 pb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr] gap-12">
+
         {/* Brand */}
-        <div className="footer__brand">
-          <div className="footer__logo">
-            <span>GIOVANI</span>
-            <span className="footer__logo-gold">MAZONI</span>
+        <div>
+          <div className="flex flex-col leading-none tracking-[0.14em] text-[0.85rem] font-bold mb-4">
+            <span className="text-cream">GIOVANI</span>
+            <span className="text-gold">MAZONI</span>
           </div>
-          <p className="footer__tagline">
-            Fotógrafo & Filmmaker em Franca, SP.<br />
+          <p className="text-[0.88rem] text-cream/55 leading-[1.7] mb-6">
+            Fotógrafo &amp; Filmmaker em Franca, SP.<br />
             Capturando momentos que duram para sempre.
           </p>
-          <div className="footer__socials">
+          <div className="flex gap-3">
             {socials.map(s => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                className="footer__social"
-                aria-label={s.label}
-              >
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
+                 className="w-9 h-9 rounded-full border border-white/[0.08] text-cream/55 flex items-center justify-center hover:border-gold hover:text-gold transition-all duration-300">
                 {s.icon}
               </a>
             ))}
@@ -70,42 +56,31 @@ export default function Footer() {
         </div>
 
         {/* Nav */}
-        <nav className="footer__nav">
-          <p className="footer__nav-title">Navegação</p>
-          {links.map(l => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="footer__nav-link"
-              onClick={e => handleLink(e, l.href)}
-            >
+        <nav className="flex flex-col gap-3">
+          <p className="text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-gold mb-1">Navegação</p>
+          {navLinks.map(l => (
+            <a key={l.href} href={l.href} onClick={e => go(e, l.href)}
+               className="text-[0.88rem] text-cream/55 hover:text-cream transition-colors duration-300">
               {l.label}
             </a>
           ))}
         </nav>
 
-        {/* Contact quick */}
-        <div className="footer__contact">
-          <p className="footer__nav-title">Contato</p>
-          <p className="footer__contact-item">📍 Franca, SP – Brasil</p>
-          <a href="mailto:contato@giovanimazoni.com.br" className="footer__contact-item footer__contact-link">
-            ✉️ contato@giovanimazoni.com.br
-          </a>
-          <a href="https://wa.me/5516999999999" target="_blank" rel="noreferrer" className="footer__contact-item footer__contact-link">
-            💬 WhatsApp
-          </a>
-          <a href="https://instagram.com/giovanimazoni" target="_blank" rel="noreferrer" className="footer__contact-item footer__contact-link">
-            📸 @giovanimazoni
-          </a>
+        {/* Contact */}
+        <div className="flex flex-col gap-3">
+          <p className="text-[0.75rem] font-semibold tracking-[0.12em] uppercase text-gold mb-1">Contato</p>
+          <p className="text-[0.88rem] text-cream/55">📍 Franca, SP – Brasil</p>
+          <a href="mailto:contato@giovanimazoni.com.br" className="text-[0.88rem] text-cream/55 hover:text-gold transition-colors">✉️ contato@giovanimazoni.com.br</a>
+          <a href="https://wa.me/5516999999999" target="_blank" rel="noreferrer" className="text-[0.88rem] text-cream/55 hover:text-gold transition-colors">💬 WhatsApp</a>
+          <a href="https://instagram.com/giovanimazoni" target="_blank" rel="noreferrer" className="text-[0.88rem] text-cream/55 hover:text-gold transition-colors">📸 @giovanimazoni</a>
         </div>
       </div>
 
-      <div className="footer__bottom">
-        <div className="container footer__bottom-inner">
+      <div className="border-t border-white/[0.08]">
+        <div className="max-w-container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[0.8rem] text-cream/30">
           <p>© {new Date().getFullYear()} Giovani Mazoni. Todos os direitos reservados.</p>
-          <p className="footer__credit">
-            Desenvolvido por{' '}
-            <a href="https://instagram.com/victormazoni.webdesign" target="_blank" rel="noreferrer">
+          <p>Desenvolvido por{' '}
+            <a href="https://instagram.com/victormazoni.webdesign" target="_blank" rel="noreferrer" className="text-gold hover:opacity-70 transition-opacity">
               Victor Mazoni Web Design
             </a>
           </p>

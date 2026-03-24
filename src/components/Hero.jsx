@@ -1,62 +1,56 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Camera } from 'lucide-react'
-import './Hero.css'
+import { ArrowDown } from 'lucide-react'
 
 export default function Hero() {
-  const scrollToPortfolio = () => {
-    document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })
-  }
-  const scrollToContact = () => {
-    document.querySelector('#contato')?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const go = id => document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section id="home" className="hero">
-      {/* Background image placeholder */}
-      <div className="hero__bg">
-        <div className="img-placeholder hero__placeholder">
-          <Camera size={48} />
-          <span>Foto Principal do Hero</span>
-          <span className="hero__placeholder-hint">Substituir por foto cinematic de alta qualidade</span>
-        </div>
-        <div className="hero__overlay" />
-        <div className="hero__grain" />
+    <section id="home" className="relative h-dvh min-h-[600px] flex items-center overflow-hidden">
+
+      {/* Background */}
+      <div className="absolute inset-0">
+        <img
+          src="/hero_bg.png"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Directional overlay: dark left → transparent right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/20" />
+        {/* Grain */}
+        <div className="grain" />
       </div>
 
       {/* Content */}
-      <div className="container hero__content">
+      <div className="relative z-10 max-w-container mx-auto px-6 pt-[72px]">
         <motion.div
+          className="max-w-[640px]"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="hero__text"
         >
-          <p className="section-label">Fotógrafo & Filmmaker · Franca, SP</p>
+          <p className="section-label">Fotógrafo &amp; Filmmaker · Franca, SP</p>
 
-          <h1 className="display-xl hero__title">
+          <h1 className="font-display text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1.05] tracking-[-0.02em] text-cream mt-4 mb-6">
             Capturando momentos<br />
-            <em>que duram para sempre</em>
+            <span className="text-gold italic">que duram para sempre</span>
           </h1>
 
-          <p className="hero__subtitle">
+          <p className="text-cream/55 text-[1.05rem] leading-[1.7] mb-8">
             Especialista em casamentos, ensaios e produções audiovisuais.<br />
             Arte que conta a sua história com emoção e elegância.
           </p>
 
-          <div className="hero__actions">
-            <button className="btn btn-primary" onClick={scrollToPortfolio}>
-              Ver Portfólio
-            </button>
-            <button className="btn btn-outline" onClick={scrollToContact}>
-              Solicitar Orçamento
-            </button>
+          <div className="flex gap-4 flex-wrap">
+            <button className="btn-primary" onClick={() => go('#portfolio')}>Ver Portfólio</button>
+            <button className="btn-outline" onClick={() => go('#contato')}>Solicitar Orçamento</button>
           </div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <motion.div
-        className="hero__scroll"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
@@ -65,7 +59,7 @@ export default function Hero() {
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
         >
-          <ArrowDown size={20} color="var(--color-gold)" />
+          <ArrowDown size={20} className="text-gold" />
         </motion.div>
       </motion.div>
     </section>

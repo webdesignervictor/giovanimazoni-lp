@@ -1,10 +1,8 @@
-/* App.css — minimal reset, global layout only */
+/* App.css — only root/main layout */
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-main {
-  flex: 1;
-}
+main { flex: 1; }

@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react'
-import './Testimonials.css'
 
 const testimonials = [
   {
@@ -32,23 +31,20 @@ const testimonials = [
 
 export default function Testimonials() {
   const [idx, setIdx] = useState(0)
-  const ref = useRef(null)
+  const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
-  const prev = () => setIdx(i => (i - 1 + testimonials.length) % testimonials.length)
-  const next = () => setIdx(i => (i + 1) % testimonials.length)
-
-  // Auto-advance
   useEffect(() => {
-    const t = setInterval(next, 5000)
+    const t = setInterval(() => setIdx(i => (i + 1) % testimonials.length), 5000)
     return () => clearInterval(t)
   }, [])
 
   const t = testimonials[idx]
 
   return (
-    <section id="depoimentos" className="section testimonials">
-      <div className="container">
+    <section id="depoimentos" className="bg-ink py-32 md:py-20">
+      <div className="max-w-container mx-auto px-6">
+
         <motion.div
           ref={ref}
           className="text-center"
@@ -56,54 +52,62 @@ export default function Testimonials() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="section-label" style={{ justifyContent: 'center' }}>O que dizem</p>
-          <h2 className="display-lg">Depoimentos</h2>
-          <div className="gold-divider center" />
+          <p className="section-label section-label--center">O que dizem</p>
+          <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold text-cream">Depoimentos</h2>
+          <div className="gold-divider gold-divider--center" />
         </motion.div>
 
-        <div className="testimonials__carousel">
-          <button className="testimonials__arrow" onClick={prev} aria-label="Anterior">
-            <ChevronLeft size={22} />
+        {/* Carousel */}
+        <div className="flex items-center gap-4 max-w-[760px] mx-auto mt-10">
+          <button
+            onClick={() => setIdx(i => (i - 1 + testimonials.length) % testimonials.length)}
+            className="flex-shrink-0 w-11 h-11 items-center justify-center rounded-full border border-white/[0.08] text-cream/55 hover:border-gold hover:text-gold transition-all sm:flex hidden"
+            aria-label="Anterior"
+          >
+            <ChevronLeft size={20} />
           </button>
 
           <motion.div
             key={idx}
-            className="testimonials__card"
+            className="flex-1 bg-surface border border-white/[0.08] rounded-3xl p-10 sm:p-8 flex flex-col gap-4"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -30 }}
             transition={{ duration: 0.4 }}
           >
-            <Quote className="testimonials__quote" size={36} />
-            <p className="testimonials__text">{t.text}</p>
-            <div className="testimonials__stars">
+            <Quote size={36} className="text-gold opacity-40" />
+            <p className="text-cream text-[1rem] italic leading-[1.8]">{t.text}</p>
+            <div className="flex gap-0.5">
               {Array.from({ length: t.stars }).map((_, i) => (
-                <Star key={i} size={14} fill="var(--color-gold)" color="var(--color-gold)" />
+                <Star key={i} size={14} fill="#c9a84c" color="#c9a84c" />
               ))}
             </div>
-            <div className="testimonials__author">
-              <div className="testimonials__avatar">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-gold/[0.12] border border-gold flex items-center justify-center font-display text-[1.2rem] text-gold font-semibold flex-shrink-0">
                 {t.name.charAt(0)}
               </div>
               <div>
-                <p className="testimonials__name">{t.name}</p>
-                <p className="testimonials__event">{t.event}</p>
+                <p className="font-semibold text-[0.95rem] text-cream">{t.name}</p>
+                <p className="text-[0.8rem] text-cream/55 mt-0.5">{t.event}</p>
               </div>
             </div>
           </motion.div>
 
-          <button className="testimonials__arrow" onClick={next} aria-label="Próximo">
-            <ChevronRight size={22} />
+          <button
+            onClick={() => setIdx(i => (i + 1) % testimonials.length)}
+            className="flex-shrink-0 w-11 h-11 items-center justify-center rounded-full border border-white/[0.08] text-cream/55 hover:border-gold hover:text-gold transition-all sm:flex hidden"
+            aria-label="Próximo"
+          >
+            <ChevronRight size={20} />
           </button>
         </div>
 
         {/* Dots */}
-        <div className="testimonials__dots">
+        <div className="flex justify-center gap-2 mt-8">
           {testimonials.map((_, i) => (
             <button
               key={i}
-              className={`testimonials__dot ${i === idx ? 'testimonials__dot--active' : ''}`}
               onClick={() => setIdx(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${i === idx ? 'bg-gold w-6' : 'bg-white/[0.15] w-2'}`}
               aria-label={`Depoimento ${i + 1}`}
             />
           ))}
