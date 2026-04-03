@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import Portrait3D from './Portrait3D'
 
 const stats = [
   { value: '8+',   label: 'Anos de Experiência' },
@@ -16,21 +17,8 @@ export default function About() {
       <div className="max-w-container mx-auto px-6" ref={ref}>
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-16 md:gap-20 items-center">
 
-          {/* Portrait */}
-          <motion.div
-            className="relative max-w-[400px] mx-auto md:mx-0"
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <img
-              src="/about_portrait.png"
-              alt="Giovani Mazoni, fotógrafo e filmmaker"
-              className="w-full aspect-[3/4] object-cover object-top rounded-lg"
-            />
-            {/* Decorative frame */}
-            <div className="absolute inset-0 translate-x-5 translate-y-5 border border-gold/20 rounded-lg -z-10" />
-          </motion.div>
+          {/* Portrait 3D Interativo */}
+          <Portrait3D />
 
           {/* Text */}
           <motion.div
@@ -40,10 +28,24 @@ export default function About() {
           >
             <p className="section-label">Sobre mim</p>
 
-            <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold leading-[1.1] text-cream">
-              Por trás das lentes,{' '}
-              <span className="text-gold italic">uma paixão por histórias</span>
-            </h2>
+            <motion.h2 
+              className="font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold leading-[1.1] text-cream notranslate"
+              translate="no"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ 
+                opacity: 1, 
+                y: 0,
+                transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+              }}
+              viewport={{ once: true }}
+            >
+              <motion.span variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="block">
+                Por trás das lentes,{' '}
+              </motion.span>
+              <motion.span variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="animate-gold-sweep italic block">
+                uma paixão por histórias
+              </motion.span>
+            </motion.h2>
 
             <div className="gold-divider" />
 

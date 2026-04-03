@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Camera, Film, Heart, Users } from 'lucide-react'
+import { Camera, Film, Heart, Users, MessageCircle } from 'lucide-react'
+import TextReveal from './TextReveal'
 
 const services = [
   {
@@ -50,7 +51,16 @@ export default function Services() {
           transition={{ duration: 0.7 }}
         >
           <p className="section-label section-label--center">O que ofereço</p>
-          <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold text-cream">Serviços</h2>
+          <motion.h2 
+            className="font-display text-[clamp(1.8rem,4vw,3.0rem)] font-semibold text-cream notranslate"
+            translate="no"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            Serviços
+          </motion.h2>
           <div className="gold-divider gold-divider--center" />
           <p className="text-cream/55 text-[1.05rem] leading-[1.7] mb-16">
             Cada tipo de projeto merece uma abordagem única.<br />
@@ -62,10 +72,18 @@ export default function Services() {
           {services.map((s, i) => (
             <motion.article
               key={s.title}
-              className="relative overflow-hidden flex flex-col gap-3 bg-surface border border-white/[0.08] rounded-2xl p-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:border-gold hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] group"
+              className="relative overflow-hidden flex flex-col gap-3 bg-surface border border-white/[0.08] rounded-2xl p-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-gold hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] group"
               initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ 
+                rotateX: 4, 
+                rotateY: -4,
+                scale: 1.02,
+                transition: { duration: 0.2 } 
+              }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.12 + 0.2 }}
+              style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
             >
               {/* Gold hover gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-gold/[0.08] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -84,7 +102,8 @@ export default function Services() {
                 ))}
               </div>
 
-              <a href="#contato" onClick={go} className="text-[0.82rem] font-medium text-cream/55 group-hover:text-gold transition-colors mt-2 relative z-10">
+              <a href="#contato" onClick={go} className="btn-whatsapp text-[0.82rem] mt-2 relative z-10">
+                <MessageCircle size={15} className="flex-shrink-0" />
                 Solicitar orçamento →
               </a>
             </motion.article>

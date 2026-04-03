@@ -1,27 +1,30 @@
 import { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import TextReveal from './TextReveal'
 
-const categories = ['Todos', 'Casamentos', 'Ensaios', 'Eventos', 'Audiovisual']
+const categories = ['Todos', 'Corporativo', 'Gastronomia', 'Eventos', 'Ensaios']
 
 const items = [
-  { id: 1, cat: 'Casamentos',  src: '/port_wedding_1.png',  alt: 'Casamento ao pôr do sol',          span: 'landscape' },
-  { id: 2, cat: 'Ensaios',     src: '/port_portrait_1.png', alt: 'Ensaio artístico em preto e branco', span: 'portrait'  },
-  { id: 3, cat: 'Eventos',     src: '/port_event_1.png',    alt: 'Gala corporativa',                   span: 'landscape' },
-  { id: 4, cat: 'Casamentos',  src: '/port_wedding_2.png',  alt: 'Cerimônia ao ar livre',              span: 'landscape' },
-  { id: 5, cat: 'Ensaios',     src: '/port_portrait_2.png', alt: 'Ensaio de casal ao pôr do sol',      span: 'portrait'  },
-  { id: 6, cat: 'Audiovisual', src: '/port_video_1.png',    alt: 'Produção audiovisual profissional',  span: 'landscape' },
+  { id: 1, cat: 'Corporativo',  src: '/fotos/cel/_DSC7980.jpg',    alt: 'Evento corporativo premium',        span: 'landscape' },
+  { id: 2, cat: 'Ensaios',      src: '/fotos/cel/_GMZ8165.jpg',    alt: 'Ensaio artístico profissional',     span: 'portrait'  },
+  { id: 3, cat: 'Gastronomia',  src: '/fotos/cel/_GMZ7603.jpg',    alt: 'Fotografia gastronômica e catering',  span: 'landscape' },
+  { id: 4, cat: 'Corporativo',  src: '/fotos/cel/_GMZ7578.jpg',    alt: 'Cobertura de evento empresarial',    span: 'landscape' },
+  { id: 5, cat: 'Ensaios',      src: '/fotos/cel/_GMZ7605.jpg',    alt: 'Retrato e ensaio lifestyle',         span: 'portrait'  },
+  { id: 6, cat: 'Eventos',      src: '/fotos/cel/_GMZ8656.jpg',    alt: 'Registro de evento social',          span: 'landscape' },
 ]
 
 const spanClass = { portrait: 'row-span-2', landscape: 'row-span-1' }
 
-export default function Portfolio() {
+export default function Portfolio({ preview = false }) {
   const [active,   setActive]   = useState('Todos')
   const [lightbox, setLightbox] = useState(null)
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
-  const filtered = active === 'Todos' ? items : items.filter(i => i.cat === active)
+  const base     = active === 'Todos' ? items : items.filter(i => i.cat === active)
+  const filtered = preview ? base.slice(0, 6) : base
 
   const navigate = dir => {
     const idx  = filtered.findIndex(i => i.id === lightbox.id)
@@ -41,27 +44,41 @@ export default function Portfolio() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="section-label section-label--center">Trabalhos recentes</p>
-          <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold text-cream">Portfólio</h2>
+          <p className="section-label section-label--center">{preview ? 'Destaques' : 'Trabalhos recentes'}</p>
+          <motion.h2 
+            className="font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold text-cream justify-center mb-4 notranslate"
+            translate="no"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            Portfólio
+          </motion.h2>
           <div className="gold-divider gold-divider--center" />
+          {preview && (
+            <p className="text-cream/55 mb-2">Foco em <strong className="text-gold">Corporativo</strong> e <strong className="text-gold">Gastronomia</strong>.</p>
+          )}
         </motion.div>
 
-        {/* Filters */}
-        <div className="flex justify-center flex-wrap gap-3 mb-10">
-          {categories.map(c => (
-            <button
-              key={c}
-              onClick={() => setActive(c)}
-              className={`px-5 py-1.5 rounded-full text-[0.82rem] font-medium tracking-[0.04em] border transition-all duration-300 ${
-                active === c
-                  ? 'bg-gold border-gold text-ink'
-                  : 'border-white/[0.08] text-cream/55 hover:border-gold hover:text-gold'
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
+        {/* Filters — only on full portfolio page */}
+        {!preview && (
+          <div className="flex justify-center flex-wrap gap-3 mb-10">
+            {categories.map(c => (
+              <button
+                key={c}
+                onClick={() => setActive(c)}
+                className={`px-5 py-1.5 rounded-full text-[0.82rem] font-medium tracking-[0.04em] border transition-all duration-300 ${
+                  active === c
+                    ? 'bg-gold border-gold text-ink'
+                    : 'border-white/[0.08] text-cream/55 hover:border-gold hover:text-gold'
+                }`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Grid */}
         <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[260px] gap-4">
@@ -71,10 +88,19 @@ export default function Portfolio() {
                 key={item.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                whileHover={{ 
+                  rotateX: 3, 
+                  rotateY: -3,
+                  scale: 1.02,
+                  zIndex: 10,
+                  transition: { duration: 0.3 }
+                }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className={`port-item relative rounded-lg overflow-hidden cursor-pointer ${spanClass[item.span] || ''}`}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.03 }}
+                style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
+                className={`port-item relative rounded-lg overflow-hidden cursor-none ${spanClass[item.span] || ''}`}
                 onClick={() => setLightbox(item)}
               >
                 <img src={item.src} alt={item.alt} className="w-full h-full object-cover object-center" />
@@ -86,6 +112,15 @@ export default function Portfolio() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* CTA to full portfolio — only in preview mode */}
+        {preview && (
+          <div className="text-center mt-12">
+            <Link to="/portfolio" className="btn-primary inline-flex gap-2">
+              Ver portfólio completo <ArrowRight size={16} />
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Lightbox */}
@@ -98,6 +133,31 @@ export default function Portfolio() {
             exit={{ opacity: 0 }}
             onClick={() => setLightbox(null)}
           >
+            {/* Glass Background Layer */}
+            <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-md -z-10" />
+            <div className="absolute inset-0 bg-black/40 -z-20" />
+            
+            {/* Animated Blobs (Liquid Effect) */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 opacity-30">
+              <motion.div 
+                className="absolute -top-1/4 -left-1/4 w-[80%] h-[80%] bg-gold/20 rounded-full blur-[120px]"
+                animate={{
+                  x: [0, 100, 0],
+                  y: [0, 50, 0],
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div 
+                className="absolute -bottom-1/4 -right-1/4 w-[70%] h-[70%] bg-gold/15 rounded-full blur-[100px]"
+                animate={{
+                  x: [0, -80, 0],
+                  y: [0, -40, 0],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+              />
+            </div>
             {/* Close */}
             <button
               className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full border border-white/[0.08] text-cream hover:bg-gold hover:text-ink hover:border-gold transition-all z-10"

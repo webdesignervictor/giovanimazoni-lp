@@ -10,15 +10,15 @@ export default {
         ink:     '#0a0a0a',
         surface: { DEFAULT: '#111111', 2: '#1a1a1a' },
         gold:    {
-          DEFAULT: '#c9a84c',
-          dim:     'rgba(201,168,76,0.15)',
-          glow:    'rgba(201,168,76,0.30)',
+          DEFAULT: '#C4622D',
+          dim:     'rgba(196,98,45,0.15)',
+          glow:    'rgba(196,98,45,0.30)',
         },
-        cream:   '#f5f5f0',
+        cream:   '#f2ede6',
       },
       fontFamily: {
-        display: ['Outfit', 'system-ui', 'sans-serif'],
-        body:    ['Inter',  'system-ui', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        body:    ['DM Sans', 'system-ui', 'sans-serif'],
       },
       maxWidth: { container: '1200px' },
       animation: {
