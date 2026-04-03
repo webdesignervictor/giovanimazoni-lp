@@ -65,7 +65,7 @@ export default function Portrait3D() {
         }}
       >
         <img
-          src="/fotos/fotos-videos-do-giovani/fotos/gi1.jpeg"
+          src="/fotos/fotos-videos-do-giovani/fotos/gi1.webp"
           alt="Giovani Mazoni"
           className="w-full h-full object-cover object-top scale-110"
         />

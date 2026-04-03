@@ -31,7 +31,7 @@ export default function Hero() {
         <motion.video
           style={{ y: yBg }}
           src="/videos/hero/video-hero-teste1.mp4"
-          poster="/fotos/cel/hero1.jpg"
+          poster="/fotos/cel/full/hero1.webp"
           autoPlay
           muted
           loop

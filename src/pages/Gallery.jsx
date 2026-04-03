@@ -6,30 +6,30 @@ import PageTransition from '../components/PageTransition'
 
 // Fotos reais da pasta /fotos/cel (MVP Fase 2)
 const MOCK_PHOTOS = [
-  { id: 1, src: '/fotos/cel/_DSC7980.jpg', alt: 'Evento' },
-  { id: 2, src: '/fotos/cel/_GMZ7530.jpg', alt: 'Evento' },
-  { id: 3, src: '/fotos/cel/_GMZ7571.jpg', alt: 'Evento' },
-  { id: 4, src: '/fotos/cel/_GMZ7572.jpg', alt: 'Evento' },
-  { id: 5, src: '/fotos/cel/_GMZ7578-1.jpg', alt: 'Evento' },
-  { id: 6, src: '/fotos/cel/_GMZ7578.jpg', alt: 'Evento' },
-  { id: 7, src: '/fotos/cel/_GMZ7586.jpg', alt: 'Evento' },
-  { id: 8, src: '/fotos/cel/_GMZ7600.jpg', alt: 'Evento' },
-  { id: 9, src: '/fotos/cel/_GMZ7603.jpg', alt: 'Evento' },
-  { id: 10, src: '/fotos/cel/_GMZ7605%202.jpg', alt: 'Evento' },
-  { id: 11, src: '/fotos/cel/_GMZ7605.jpg', alt: 'Evento' },
-  { id: 12, src: '/fotos/cel/_GMZ7664.jpg', alt: 'Evento' },
-  { id: 13, src: '/fotos/cel/_GMZ7668.jpg', alt: 'Evento' },
-  { id: 14, src: '/fotos/cel/_GMZ7672.jpg', alt: 'Evento' },
-  { id: 15, src: '/fotos/cel/_GMZ8026.jpg', alt: 'Evento' },
-  { id: 16, src: '/fotos/cel/_GMZ8165.jpg', alt: 'Evento' },
-  { id: 17, src: '/fotos/cel/_GMZ8176.jpg', alt: 'Evento' },
-  { id: 18, src: '/fotos/cel/_GMZ8212.jpg', alt: 'Evento' },
-  { id: 19, src: '/fotos/cel/_GMZ8221.jpg', alt: 'Evento' },
-  { id: 20, src: '/fotos/cel/_GMZ8598.jpg', alt: 'Evento' },
-  { id: 21, src: '/fotos/cel/_GMZ8612.jpg', alt: 'Evento' },
-  { id: 22, src: '/fotos/cel/_GMZ8618.jpg', alt: 'Evento' },
-  { id: 23, src: '/fotos/cel/_GMZ8656.jpg', alt: 'Evento' },
-  { id: 24, src: '/fotos/cel/hero1.jpg', alt: 'Hero Imagem' },
+  { id: 1,  src: '/fotos/cel/thumb/_DSC7980.webp',    full: '/fotos/cel/full/_DSC7980.webp',    alt: 'Evento' },
+  { id: 2,  src: '/fotos/cel/thumb/_GMZ7530.webp',    full: '/fotos/cel/full/_GMZ7530.webp',    alt: 'Evento' },
+  { id: 3,  src: '/fotos/cel/thumb/_GMZ7571.webp',    full: '/fotos/cel/full/_GMZ7571.webp',    alt: 'Evento' },
+  { id: 4,  src: '/fotos/cel/thumb/_GMZ7572.webp',    full: '/fotos/cel/full/_GMZ7572.webp',    alt: 'Evento' },
+  { id: 5,  src: '/fotos/cel/thumb/_GMZ7578-1.webp',  full: '/fotos/cel/full/_GMZ7578-1.webp',  alt: 'Evento' },
+  { id: 6,  src: '/fotos/cel/thumb/_GMZ7578.webp',    full: '/fotos/cel/full/_GMZ7578.webp',    alt: 'Evento' },
+  { id: 7,  src: '/fotos/cel/thumb/_GMZ7586.webp',    full: '/fotos/cel/full/_GMZ7586.webp',    alt: 'Evento' },
+  { id: 8,  src: '/fotos/cel/thumb/_GMZ7600.webp',    full: '/fotos/cel/full/_GMZ7600.webp',    alt: 'Evento' },
+  { id: 9,  src: '/fotos/cel/thumb/_GMZ7603.webp',    full: '/fotos/cel/full/_GMZ7603.webp',    alt: 'Evento' },
+  { id: 10, src: '/fotos/cel/thumb/_GMZ7605%202.webp', full: '/fotos/cel/full/_GMZ7605%202.webp', alt: 'Evento' },
+  { id: 11, src: '/fotos/cel/thumb/_GMZ7605.webp',    full: '/fotos/cel/full/_GMZ7605.webp',    alt: 'Evento' },
+  { id: 12, src: '/fotos/cel/thumb/_GMZ7664.webp',    full: '/fotos/cel/full/_GMZ7664.webp',    alt: 'Evento' },
+  { id: 13, src: '/fotos/cel/thumb/_GMZ7668.webp',    full: '/fotos/cel/full/_GMZ7668.webp',    alt: 'Evento' },
+  { id: 14, src: '/fotos/cel/thumb/_GMZ7672.webp',    full: '/fotos/cel/full/_GMZ7672.webp',    alt: 'Evento' },
+  { id: 15, src: '/fotos/cel/thumb/_GMZ8026.webp',    full: '/fotos/cel/full/_GMZ8026.webp',    alt: 'Evento' },
+  { id: 16, src: '/fotos/cel/thumb/_GMZ8165.webp',    full: '/fotos/cel/full/_GMZ8165.webp',    alt: 'Evento' },
+  { id: 17, src: '/fotos/cel/thumb/_GMZ8176.webp',    full: '/fotos/cel/full/_GMZ8176.webp',    alt: 'Evento' },
+  { id: 18, src: '/fotos/cel/thumb/_GMZ8212.webp',    full: '/fotos/cel/full/_GMZ8212.webp',    alt: 'Evento' },
+  { id: 19, src: '/fotos/cel/thumb/_GMZ8221.webp',    full: '/fotos/cel/full/_GMZ8221.webp',    alt: 'Evento' },
+  { id: 20, src: '/fotos/cel/thumb/_GMZ8598.webp',    full: '/fotos/cel/full/_GMZ8598.webp',    alt: 'Evento' },
+  { id: 21, src: '/fotos/cel/thumb/_GMZ8612.webp',    full: '/fotos/cel/full/_GMZ8612.webp',    alt: 'Evento' },
+  { id: 22, src: '/fotos/cel/thumb/_GMZ8618.webp',    full: '/fotos/cel/full/_GMZ8618.webp',    alt: 'Evento' },
+  { id: 23, src: '/fotos/cel/thumb/_GMZ8656.webp',    full: '/fotos/cel/full/_GMZ8656.webp',    alt: 'Evento' },
+  { id: 24, src: '/fotos/cel/thumb/hero1.webp',       full: '/fotos/cel/full/hero1.webp',       alt: 'Hero Imagem' },
 ]
 
 export default function Gallery() {
@@ -98,6 +98,7 @@ export default function Gallery() {
                 <img 
                   src={photo.src} 
                   alt={photo.alt}
+                  loading="lazy"
                   onClick={() => setLightbox(photo)}
                   className="w-full h-full object-cover cursor-zoom-in transition-transform duration-700 group-hover:scale-105" 
                 />
@@ -192,7 +193,7 @@ export default function Gallery() {
               <div className="max-w-5xl w-full flex flex-col gap-6">
                 <motion.img 
                   layoutId={lightbox.id}
-                  src={lightbox.src} 
+                  src={lightbox.full || lightbox.src} 
                   className="w-full max-h-[75vh] object-contain rounded-lg shadow-2xl"
                 />
                 <div className="flex justify-between items-center bg-surface/50 p-6 rounded-2xl border border-white/5">

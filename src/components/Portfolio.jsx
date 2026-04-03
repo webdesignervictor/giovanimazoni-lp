@@ -7,12 +7,12 @@ import TextReveal from './TextReveal'
 const categories = ['Todos', 'Corporativo', 'Gastronomia', 'Eventos', 'Ensaios']
 
 const items = [
-  { id: 1, cat: 'Corporativo',  src: '/fotos/cel/_DSC7980.jpg',    alt: 'Evento corporativo premium',        span: 'landscape' },
-  { id: 2, cat: 'Ensaios',      src: '/fotos/cel/_GMZ8165.jpg',    alt: 'Ensaio artístico profissional',     span: 'portrait'  },
-  { id: 3, cat: 'Gastronomia',  src: '/fotos/cel/_GMZ7603.jpg',    alt: 'Fotografia gastronômica e catering',  span: 'landscape' },
-  { id: 4, cat: 'Corporativo',  src: '/fotos/cel/_GMZ7578.jpg',    alt: 'Cobertura de evento empresarial',    span: 'landscape' },
-  { id: 5, cat: 'Ensaios',      src: '/fotos/cel/_GMZ7605.jpg',    alt: 'Retrato e ensaio lifestyle',         span: 'portrait'  },
-  { id: 6, cat: 'Eventos',      src: '/fotos/cel/_GMZ8656.jpg',    alt: 'Registro de evento social',          span: 'landscape' },
+  { id: 1, cat: 'Corporativo',  src: '/fotos/cel/thumb/_DSC7980.webp',  full: '/fotos/cel/full/_DSC7980.webp',  alt: 'Evento corporativo premium',        span: 'landscape' },
+  { id: 2, cat: 'Ensaios',      src: '/fotos/cel/thumb/_GMZ8165.webp',  full: '/fotos/cel/full/_GMZ8165.webp',  alt: 'Ensaio artístico profissional',     span: 'portrait'  },
+  { id: 3, cat: 'Gastronomia',  src: '/fotos/cel/thumb/_GMZ7603.webp',  full: '/fotos/cel/full/_GMZ7603.webp',  alt: 'Fotografia gastronômica e catering',  span: 'landscape' },
+  { id: 4, cat: 'Corporativo',  src: '/fotos/cel/thumb/_GMZ7578.webp',  full: '/fotos/cel/full/_GMZ7578.webp',  alt: 'Cobertura de evento empresarial',    span: 'landscape' },
+  { id: 5, cat: 'Ensaios',      src: '/fotos/cel/thumb/_GMZ7605.webp',  full: '/fotos/cel/full/_GMZ7605.webp',  alt: 'Retrato e ensaio lifestyle',         span: 'portrait'  },
+  { id: 6, cat: 'Eventos',      src: '/fotos/cel/thumb/_GMZ8656.webp',  full: '/fotos/cel/full/_GMZ8656.webp',  alt: 'Registro de evento social',          span: 'landscape' },
 ]
 
 const spanClass = { portrait: 'row-span-2', landscape: 'row-span-1' }
@@ -103,7 +103,7 @@ export default function Portfolio({ preview = false }) {
                 className={`port-item relative rounded-lg overflow-hidden cursor-none ${spanClass[item.span] || ''}`}
                 onClick={() => setLightbox(item)}
               >
-                <img src={item.src} alt={item.alt} className="w-full h-full object-cover object-center" />
+                <img src={item.src} alt={item.alt} loading="lazy" className="w-full h-full object-cover object-center" />
                 <div className="port-overlay">
                   <span className="text-[0.9rem] font-semibold text-gold tracking-[0.06em] uppercase">{item.cat}</span>
                   <span className="text-[0.75rem] text-cream/55">Clique para ampliar</span>
@@ -181,7 +181,7 @@ export default function Portfolio({ preview = false }) {
               exit={{ scale: 0.92 }}
               onClick={e => e.stopPropagation()}
             >
-              <img src={lightbox.src} alt={lightbox.alt} className="w-full max-h-[75vh] object-contain rounded-lg" />
+              <img src={lightbox.full || lightbox.src} alt={lightbox.alt} className="w-full max-h-[75vh] object-contain rounded-lg" />
               <p className="text-center text-cream/55 text-[0.85rem]">{lightbox.alt} · {lightbox.cat}</p>
             </motion.div>
 

@@ -45,7 +45,7 @@ export default function Sobre() {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             >
               <img
-                src="/about_portrait.png"
+                src="/about_portrait.webp"
                 alt="Giovani Mazoni – fotógrafo e filmmaker"
                 className="w-full aspect-[3/4] object-cover object-top rounded-2xl"
               />
