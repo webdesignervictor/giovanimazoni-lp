@@ -1,8 +1,9 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
-import { Camera, Film, Building2, UtensilsCrossed, ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react'
+import { Camera, Film, Building2, UtensilsCrossed, ArrowRight, CheckCircle2, MessageCircle, Sparkles } from 'lucide-react'
 import PageTransition from '../components/PageTransition'
+import AIEstimator from '../components/AIEstimator'
 
 const packagesCorpo = [
   {
@@ -82,6 +83,7 @@ function PackageCard({ pkg }) {
 export default function Servicos() {
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const [showEstimator, setShowEstimator] = useState(false)
 
   return (
     <PageTransition>
@@ -101,6 +103,13 @@ export default function Servicos() {
                 Especialista em <strong className="text-gold">fotografia corporativa</strong> e <strong className="text-gold">gastronomia</strong> em Franca–SP e região.
                 Pacotes pensados para cada necessidade e orçamento.
               </p>
+              <button
+                onClick={() => setShowEstimator(true)}
+                className="mt-6 inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold px-6 py-3 rounded-full font-semibold text-sm hover:bg-gold/20 transition-all"
+              >
+                <Sparkles size={16} />
+                Calcule seu orçamento com IA
+              </button>
             </motion.div>
           </div>
         </section>
@@ -175,6 +184,9 @@ export default function Servicos() {
           </div>
         </section>
       </div>
+
+      {/* AI Estimator Modal */}
+      <AIEstimator isOpen={showEstimator} onClose={() => setShowEstimator(false)} />
     </PageTransition>
   )
 }

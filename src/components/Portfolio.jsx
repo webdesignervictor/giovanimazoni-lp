@@ -1,17 +1,17 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate as useNav } from 'react-router-dom'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, ArrowRight, Play } from 'lucide-react'
 import TextReveal from './TextReveal'
 
 const categories = ['Todos', 'Corporativo', 'Gastronomia', 'Eventos', 'Ensaios']
 
 const items = [
-  { id: 1, cat: 'Corporativo',  src: '/fotos/cel/thumb/_DSC7980.webp',  full: '/fotos/cel/full/_DSC7980.webp',  alt: 'Evento corporativo premium',        span: 'landscape' },
-  { id: 2, cat: 'Ensaios',      src: '/fotos/cel/thumb/_GMZ8165.webp',  full: '/fotos/cel/full/_GMZ8165.webp',  alt: 'Ensaio artístico profissional',     span: 'portrait'  },
-  { id: 3, cat: 'Gastronomia',  src: '/fotos/cel/thumb/_GMZ7603.webp',  full: '/fotos/cel/full/_GMZ7603.webp',  alt: 'Fotografia gastronômica e catering',  span: 'landscape' },
-  { id: 4, cat: 'Corporativo',  src: '/fotos/cel/thumb/_GMZ7578.webp',  full: '/fotos/cel/full/_GMZ7578.webp',  alt: 'Cobertura de evento empresarial',    span: 'landscape' },
-  { id: 5, cat: 'Ensaios',      src: '/fotos/cel/thumb/_GMZ7605.webp',  full: '/fotos/cel/full/_GMZ7605.webp',  alt: 'Retrato e ensaio lifestyle',         span: 'portrait'  },
+  { id: 1, cat: 'Corporativo',  src: '/fotos/cel/thumb/_DSC7980.webp',  full: '/fotos/cel/full/_DSC7980.webp',  alt: 'Evento corporativo premium',        span: 'landscape', slug: 'evento-corporativo-techfranca' },
+  { id: 2, cat: 'Ensaios',      src: '/fotos/cel/thumb/_GMZ8165.webp',  full: '/fotos/cel/full/_GMZ8165.webp',  alt: 'Ensaio artístico profissional',     span: 'portrait',  slug: 'ensaio-artistico-studio' },
+  { id: 3, cat: 'Gastronomia',  src: '/fotos/cel/thumb/_GMZ7603.webp',  full: '/fotos/cel/full/_GMZ7603.webp',  alt: 'Fotografia gastronômica e catering',  span: 'landscape', slug: 'cobertura-gastronomia-sabores' },
+  { id: 4, cat: 'Corporativo',  src: '/fotos/cel/thumb/_GMZ7578.webp',  full: '/fotos/cel/full/_GMZ7578.webp',  alt: 'Cobertura de evento empresarial',    span: 'landscape', slug: 'evento-corporativo-techfranca' },
+  { id: 5, cat: 'Ensaios',      src: '/fotos/cel/thumb/_GMZ7605.webp',  full: '/fotos/cel/full/_GMZ7605.webp',  alt: 'Retrato e ensaio lifestyle',         span: 'portrait',  slug: 'ensaio-artistico-studio' },
   { id: 6, cat: 'Eventos',      src: '/fotos/cel/thumb/_GMZ8656.webp',  full: '/fotos/cel/full/_GMZ8656.webp',  alt: 'Registro de evento social',          span: 'landscape' },
 ]
 
@@ -22,11 +22,12 @@ export default function Portfolio({ preview = false }) {
   const [lightbox, setLightbox] = useState(null)
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const nav    = useNav()
 
   const base     = active === 'Todos' ? items : items.filter(i => i.cat === active)
   const filtered = preview ? base.slice(0, 6) : base
 
-  const navigate = dir => {
+  const navigateLB = dir => {
     const idx  = filtered.findIndex(i => i.id === lightbox.id)
     const next = (idx + dir + filtered.length) % filtered.length
     setLightbox(filtered[next])
@@ -101,12 +102,18 @@ export default function Portfolio({ preview = false }) {
                 transition={{ duration: 0.3, delay: i * 0.03 }}
                 style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
                 className={`port-item relative rounded-lg overflow-hidden cursor-none ${spanClass[item.span] || ''}`}
-                onClick={() => setLightbox(item)}
+                onClick={() => item.slug ? nav(`/projeto/${item.slug}`) : setLightbox(item)}
               >
                 <img src={item.src} alt={item.alt} loading="lazy" className="w-full h-full object-cover object-center" />
                 <div className="port-overlay">
                   <span className="text-[0.9rem] font-semibold text-gold tracking-[0.06em] uppercase">{item.cat}</span>
-                  <span className="text-[0.75rem] text-cream/55">Clique para ampliar</span>
+                  {item.slug ? (
+                    <span className="flex items-center gap-2 text-[0.75rem] text-cream/70 font-medium">
+                      <Play size={12} fill="currentColor" /> Ver história
+                    </span>
+                  ) : (
+                    <span className="text-[0.75rem] text-cream/55">Clique para ampliar</span>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -169,7 +176,7 @@ export default function Portfolio({ preview = false }) {
             {/* Prev */}
             <button
               className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full border border-white/[0.08] text-cream hover:bg-gold hover:text-ink hover:border-gold transition-all z-10"
-              onClick={e => { e.stopPropagation(); navigate(-1) }}
+              onClick={e => { e.stopPropagation(); navigateLB(-1) }}
             >
               <ChevronLeft size={24} />
             </button>
@@ -188,7 +195,7 @@ export default function Portfolio({ preview = false }) {
             {/* Next */}
             <button
               className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full border border-white/[0.08] text-cream hover:bg-gold hover:text-ink hover:border-gold transition-all z-10"
-              onClick={e => { e.stopPropagation(); navigate(1) }}
+              onClick={e => { e.stopPropagation(); navigateLB(1) }}
             >
               <ChevronRight size={24} />
             </button>

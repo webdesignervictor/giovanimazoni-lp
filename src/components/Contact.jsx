@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { MapPin, Mail, MessageCircle, Send } from 'lucide-react'
+import { MapPin, Mail, MessageCircle, Send, Sparkles } from 'lucide-react'
+import AIEstimator from './AIEstimator'
 
 const IgIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -21,6 +22,7 @@ export default function Contact() {
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' })
+  const [showEstimator, setShowEstimator] = useState(false)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -44,6 +46,12 @@ export default function Contact() {
           <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold text-cream">Solicite um Orçamento</h2>
           <div className="gold-divider gold-divider--center" />
           <p className="text-cream/55 mb-0">Preencha o formulário e entraremos em contato em breve.</p>
+          <button
+            onClick={() => setShowEstimator(true)}
+            className="inline-flex items-center gap-2 mt-4 px-5 py-2 bg-gold/10 border border-gold/20 rounded-full text-gold text-[0.8rem] font-semibold tracking-wider hover:bg-gold/20 hover:border-gold/40 transition-all"
+          >
+            <Sparkles size={14} /> Calcule seu orçamento com IA
+          </button>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-10 mt-12 items-start">
@@ -106,6 +114,9 @@ export default function Contact() {
             </button>
           </motion.form>
         </div>
+
+        {/* AI Estimator Modal */}
+        <AIEstimator isOpen={showEstimator} onClose={() => setShowEstimator(false)} />
       </div>
     </section>
   )

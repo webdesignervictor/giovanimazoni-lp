@@ -7,7 +7,6 @@ const navItems = [
   { to: '/',          label: 'Home',      exact: true },
   { to: '/portfolio', label: 'Portfólio'              },
   { to: '/servicos',  label: 'Serviços'               },
-  { to: '/sobre',     label: 'Sobre'                  },
 ]
 
 export default function Navbar() {
